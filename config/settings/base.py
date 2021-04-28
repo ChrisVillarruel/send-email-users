@@ -28,7 +28,7 @@ BASE_APPS = [
 
 # app local
 LOCAL_APPS = [
-
+    'apps.users',
 ]
 
 # third apps
@@ -109,6 +109,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Definimos el modulo User personalizado
+AUTH_USER_MODEL = 'users.User'
 
 
 # Configuración de base de datos.
