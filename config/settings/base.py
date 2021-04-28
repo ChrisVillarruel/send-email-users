@@ -38,7 +38,11 @@ THIRD_APPS = [
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
-
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'exceptions.exception_handler.custom_exception_handler',
+    'NON_FIELD_ERROR_KEY': 'error',
+    'DEFAULT_AUTHENTICATION_CLASSES': ('apps.users.authentication.authorization.JWTAuthentication',)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,8 +73,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
