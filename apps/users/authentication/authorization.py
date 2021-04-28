@@ -2,7 +2,7 @@
 from django.conf import settings
 
 # Modulos de rest_framework 
-from rest_framework.authentication import BaseAuthentication
+from rest_framework.authentication import BaseAuthentication, get_authorization_header
 from rest_framework.exceptions import AuthenticationFailed
 
 # Modulos de JWT
@@ -19,7 +19,7 @@ class JWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
         request.user = None
 
-        auth_header = self.get_authorization_header(request).split()
+        auth_header = get_authorization_header(request).split()
         auth_prefix_header = self.prefix_header_authentication.lower()
 
         if not auth_header:
@@ -38,6 +38,7 @@ class JWTAuthentication(BaseAuthentication):
 
         if len(auth_header) > 2:
             msg = 'Token invalido y/o contiene errores ortografico.'
+            raise AuthenticationFailed(msg)
 
 
 
@@ -93,6 +94,7 @@ class JWTAuthentication(BaseAuthentication):
 
             except user.DoesNotExist as e:
                 msg = 'El token de autenticación no existe o fue eliminado.'
+                raise AuthenticationFailed(msg)
 
 
             return (user, token)
