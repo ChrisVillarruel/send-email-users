@@ -38,6 +38,13 @@ class User(AbstractBaseUser, PermissionsMixin, UserBaseToken):
     def __str__(self):
         return f'{self.email}'
 
+    def token(self):
+        return {
+            'access_token': self.access_token,
+            'refresh_token': self.refresh_token
+        }
+
+
 
     def save(self, *args, **kwargs):
         get_time_now = get_timezone().strftime('%y%m%d')
