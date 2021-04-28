@@ -3,9 +3,13 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
 # Modulos locales
+from apps.users.authentication.jwt_token import generate_jwt_token
+from apps.users.authentication.get_expired_date_token import get_expired_date_token
 from .manager import UserManager
 from .model_token import UserBaseToken
-from .choices import CLIENT, ROLE_CHOICES
+from .choices import CLIENT, ROLE_CHOICES, ADMIN
+from .timezone import get_timezone
+
 
 
 # Create your models here.
@@ -35,6 +39,24 @@ class User(AbstractBaseUser, PermissionsMixin, UserBaseToken):
         return f'{self.email}'
 
 
+    def save(self, *args, **kwargs):
+        get_time_now = get_timezone().strftime('%y%m%d')
+
+        
+        if self.access_token is None or self.refresh_token is None:
+            self.access_token = generate_jwt_token(self.full_name, 'access', self.role, minutes=30)
+            self.refresh_token = generate_jwt_token(self.full_name, 'refresh', self.role, days=60)
+
+
+        if get_time_now >= get_expired_date_token(self.refresh_token):
+            self.refresh_token = generate_jwt_token(self.full_name, 'refresh', self.role, days=60)
+
+
+        if self.is_superuser:
+            self.role = ADMIN
+
+
+        super().save(*args, **kwargs)
 
 
 
