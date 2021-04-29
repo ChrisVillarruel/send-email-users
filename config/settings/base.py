@@ -122,8 +122,9 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # Configuración de base de datos.
-# importamos el modulo de las credenciales de la db, si no existe
-# el modulo cree uno nuevo con sus credenciales.
+# Se importo el modulo credentials donde esta las credenciales para hacer una conexión 
+# si no existe el modulo "credentials" cree uno nuevo con sus credenciales.
+
 
 ENGINE = 'django.db.backends.mysql'
 NAME_SCHEMA = credentials.NAME_SCHEMA
