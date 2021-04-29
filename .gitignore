@@ -1,0 +1,15 @@
+
+exceptions/__pycache__
+
+config/__pycache__
+config/settings/__pycache__
+config/settings/credentials.py
+
+apps/users/migrations
+apps/users/__pycache__
+apps/users/authentication/__pycache__
+apps/users/api/serializers/__pycache__
+apps/users/api/views/__pycache__
+
+
+
