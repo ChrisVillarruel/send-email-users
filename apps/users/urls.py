@@ -1,11 +1,12 @@
+# Modulos nativos de django
 from django.urls import path
 
-
-from .views import LoginAPIView
-
+# Modulos locales
+from apps.users.api.views.login import LoginAPIView
+from apps.users.api.views.create import UserCreateAPIView
 
 
 urlpatterns = [
-    path('login/', LoginAPIView.as_view(), name='login'),
-
+    path('sing-in/', LoginAPIView.as_view(), name='login'),
+    path('sing-up/', UserCreateAPIView.as_view(), name='create'),
 ]
