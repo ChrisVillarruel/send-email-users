@@ -45,7 +45,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'exceptions.exception_handler.custom_exception_handler',
-    'NON_FIELD_ERROR_KEY': 'error',
+    'NON_FIELD_ERRORS': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': ('apps.users.authentication.authorization.JWTAuthentication',)
 }
 
@@ -132,18 +132,18 @@ PASSWORD = credentials.PASSWORD
 HOST = credentials.HOST
 PORT = credentials.PORT
 
-# Configuración de cuentas de administrador utilizando GMAIL
+""" 
+Se configuro una cuenta que sera manejada por el sistema y que enviara 
+una notificación (mensaje de correo) al administrador del sistema.
+
+"""
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') # Agregar cuenta gmail 
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Agregar password
 EMAIL_USE_TLS = True
-
-
-
-
 
 
 
