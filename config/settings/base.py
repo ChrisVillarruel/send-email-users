@@ -1,4 +1,9 @@
 from pathlib import Path
+from decouple import config
+
+# modulo local
+from . import credentials
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -120,9 +125,6 @@ AUTH_USER_MODEL = 'users.User'
 # importamos el modulo de las credenciales de la db, si no existe
 # el modulo cree uno nuevo con sus credenciales.
 
-# modulo local
-from . import credentials
-
 ENGINE = 'django.db.backends.mysql'
 NAME_SCHEMA = credentials.NAME_SCHEMA
 USERNAME = credentials.USERNAME
@@ -130,8 +132,14 @@ PASSWORD = credentials.PASSWORD
 HOST = credentials.HOST
 PORT = credentials.PORT
 
+# Configuración de cuentas de administrador utilizando GMAIL
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
 
 
 
